@@ -1,0 +1,165 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" scan="false">
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <property name="LOG_PATH" value="/opt/logs/"/>
+    <property name="MODULE_NAME" value="zero_hs"/>
+
+    <property name="LOG_PATTERN"
+              value="%d{yyyy-MM-dd HH:mm:ss.SSS} traceId=%X{traceId} %level ${PID:- } --- [%15.15t] %-40.40logger{39} : %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}}"/>
+
+    <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender" additivity="false">
+        <encoder>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+    </appender>
+
+    <appender name="ALL" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <file>${LOG_PATH}/${MODULE_NAME}/all.log</file>
+        <append>true</append>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${MODULE_NAME}/all.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+<!--    <appender name="HTTP_ACCESS" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">-->
+<!--        <file>${LOG_PATH}/${MODULE_NAME}/http_access.log</file>-->
+<!--        <append>true</append>-->
+<!--        <encoder>-->
+<!--            <pattern>${LOG_PATTERN}</pattern>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${LOG_PATH}/${MODULE_NAME}/http_access.log.%d{yyyy-MM-dd}</fileNamePattern>-->
+<!--            <maxHistory>7</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--    </appender>-->
+
+<!--    <appender name="JOB" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">-->
+<!--        <file>${LOG_PATH}/${MODULE_NAME}/job.log</file>-->
+<!--        <append>true</append>-->
+<!--        <encoder>-->
+<!--            <pattern>${LOG_PATTERN}</pattern>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <fileNamePattern>${LOG_PATH}/${MODULE_NAME}/job.log.%d{yyyy-MM-dd}</fileNamePattern>-->
+<!--            <maxHistory>7</maxHistory>-->
+<!--        </rollingPolicy>-->
+<!--    </appender>-->
+
+    <appender name="ERROR" class="ch.qos.logback.core.rolling.RollingFileAppender" additivity="false">
+        <file>${LOG_PATH}/${MODULE_NAME}/error.log</file>
+        <filter class="ch.qos.logback.classic.filter.LevelFilter">
+            <level>ERROR</level>
+            <onMatch>ACCEPT</onMatch>
+            <onMismatch>DENY</onMismatch>
+        </filter>
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>UTF-8</charset>
+        </encoder>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_PATH}/${MODULE_NAME}/error.log.%d{yyyy-MM-dd}</fileNamePattern>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+    </appender>
+
+<!--    <appender name="request-audit" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <file>${LOG_PATH}/${MODULE_NAME}/auditlog/request_audit.log</file>-->
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>info</level>-->
+<!--        </filter>-->
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <FileNamePattern>${LOG_PATH}/${MODULE_NAME}/auditlog/request_audit.log.%d{yyyy-MM-dd}</FileNamePattern>-->
+<!--            <MaxHistory>7</MaxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <encoder>-->
+<!--            <pattern>%msg%n</pattern>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <appender name="csos-audit" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <file>${LOG_PATH}/${MODULE_NAME}/auditlog/csos_audit.log</file>-->
+
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>info</level>-->
+<!--        </filter>-->
+
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <FileNamePattern>${LOG_PATH}/${MODULE_NAME}/auditlog/csos_audit.log.%d{yyyy-MM-dd}</FileNamePattern>-->
+<!--            <MaxHistory>7</MaxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <encoder>-->
+<!--            <pattern>%msg%n</pattern>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <appender name="invoke_error" class="ch.qos.logback.core.rolling.RollingFileAppender">-->
+<!--        <file>${LOG_PATH}/${MODULE_NAME}/auditlog/invoke_error.log</file>-->
+
+<!--        <filter class="ch.qos.logback.classic.filter.LevelFilter">-->
+<!--            <level>error</level>-->
+<!--        </filter>-->
+
+<!--        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">-->
+<!--            <FileNamePattern>${LOG_PATH}/${MODULE_NAME}/auditlog/invoke_error.log.%d{yyyy-MM-dd}</FileNamePattern>-->
+<!--            <MaxHistory>7</MaxHistory>-->
+<!--        </rollingPolicy>-->
+<!--        <encoder>-->
+<!--            <pattern>%msg%n</pattern>-->
+<!--            <charset>UTF-8</charset>-->
+<!--        </encoder>-->
+<!--    </appender>-->
+
+<!--    <logger name="HTTP_ACCESS_LOGGER" level="info" additivity="false">-->
+<!--        <appender-ref ref="HTTP_ACCESS"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="JOB_LOGGER" level="info" additivity="false">-->
+<!--        <appender-ref ref="JOB"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="gmmsj_audit_logger" level="info" additivity="false">-->
+<!--        <appender-ref ref="request-audit"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="gmmsj_audit_logger" level="info" additivity="false">-->
+<!--        <appender-ref ref="request-audit"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="gmmsj_csos_logger" level="info" additivity="false">-->
+<!--        <appender-ref ref="csos-audit"/>-->
+<!--    </logger>-->
+
+<!--    <logger name="gmmsj_invoke_error_logger" level="info" additivity="false">-->
+<!--        <appender-ref ref="invoke_error"/>-->
+<!--    </logger>-->
+
+    <springProfile name="dev,default">
+        <root level="INFO">
+            <appender-ref ref="STDOUT"/>
+            <appender-ref ref="ALL"/>
+            <appender-ref ref="ERROR"/>
+        </root>
+        <logger name="com.hs.zero" level="INFO"/>
+        <logger name="com.baomidou.dynamic.datasource.DynamicRoutingDataSource" level="DEBUG"/>
+        <logger name="org.springframework.jdbc.datasource.DataSourceTransactionManager" level="DEBUG"/>
+    </springProfile>
+
+<!--    <springProfile name="prod,gray">-->
+<!--        <root level="INFO">-->
+<!--            <appender-ref ref="ALL"/>-->
+<!--            <appender-ref ref="ERROR"/>-->
+<!--        </root>-->
+<!--    </springProfile>-->
+</configuration>
